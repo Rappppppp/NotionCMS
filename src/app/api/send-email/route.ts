@@ -1,9 +1,3 @@
-
-// import { NextResponse } from 'next/server'
-
-// export async function GET(request: Request) {
-//   return NextResponse.json({ msg: 'Hello from server' })
-// }
 import rateLimit from '../../../server/RateLimiter'
 
 const dotenv = require('dotenv')
@@ -38,7 +32,7 @@ const validateEmail = (email: string): boolean => {
 
 export async function POST(request: Request) {
   const authHeader = request.headers.get('authorization')
-
+ 
   if (authHeader != process.env.SECRET_KEY) return Response.json(
     { message: 'Unauthorized' },
     { status: 401 })
