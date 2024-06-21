@@ -42,7 +42,7 @@ export async function POST(request: Request) {
   }
 
   mailTransporter.sendMail(mailDetails(email, subject, message), (err: any, data: any) => {
-    if (!err) {
+    if (err) {
       console.log('Error Occurs:', err)
       return Response.json(
         { message: 'Error sending email.' },
