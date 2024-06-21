@@ -10,7 +10,7 @@ type ContentsType = {
     pageId: string
 }
 
-const getPageContents = async ({ pageId }: ContentsType) => {
+const NotionContents = async ({ pageId }: ContentsType) => {
     
     try {
         const parentResponse = await notion.pages.retrieve({
@@ -51,4 +51,4 @@ const getPageContents = async ({ pageId }: ContentsType) => {
     }
 }
 
-export default getPageContents;
+export default NotionContents;
