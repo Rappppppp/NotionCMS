@@ -1,5 +1,3 @@
-import rateLimit from '../../../server/RateLimiter'
-
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -33,29 +31,14 @@ const validateEmail = (email: string): boolean => {
 export async function POST(request: Request) {
   const authHeader = request.headers.get('authorization')
  
-  if (authHeader != process.env.SECRET_KEY) return Response.json(
-    { message: 'Unauthorized' },
-    { status: 401 })
-
-  if (await rateLimit(request, Response)) {
-    return new Response(JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }), {
-      status: 429,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
+  if (authHeader != process.env.SECRET_KEY) return Response.json({ message: 'Unauthorized' }, { status: 401 })
 
   const { email, subject, message } = await request.json()
 
-  if (!validateEmail(email)) return Response.json(
-    { message: 'Please enter a valid email.' },
-    { status: 401 })
+  if (!validateEmail(email)) return Response.json({ message: 'Please enter a valid email.' }, { status: 401 })
 
   if (email.length > 50 || email.length < 6 || subject.length < 5 || subject.length > 100 || message.length > 255) {
-    return Response.json(
-      { message: 'Enter a valid input.' },
-      { status: 500 });
+    return Response.json({ message: 'Enter a valid input.' },{ status: 500 })
   }
 
   mailTransporter.sendMail(mailDetails(email, subject, message), (err: any, data: any) => {
