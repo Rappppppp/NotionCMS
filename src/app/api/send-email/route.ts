@@ -1,3 +1,5 @@
+"use server"
+
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -48,13 +50,9 @@ export async function POST(request: Request) {
         { message: 'Error sending email.' },
         { status: 500 })
     }
-
-    return Response.json(
-      { message: 'Email sent successfully' },
-      { status: 200 })
   })
 
   return Response.json(
-    { message: "Something's wrong" },
-    { status: 500 })
+    { message: 'Email sent successfully' },
+    { status: 200 })
 }
