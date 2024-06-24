@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import BlockRenderer from '@/components/BlockRenderer';
 import NotionContents from '@/server/NotionContents';
-// import Star from '@/components/Star';
+
+import Image from 'next/image';
 
 interface PageContents {
     parent_icon: any;
@@ -22,13 +23,13 @@ const initialContents: PageContents = {
     genre: [],
 };
 
-export default function Page({ params }: { params: { movieId: string } }) {
+export default function Page({ params }: { params: { journalId: string } }) {
     const [contents, setContents] = useState<PageContents>(initialContents);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchContents = async () => {
         try {
-            const response = await NotionContents({pageId: params.movieId});
+            const response = await NotionContents({pageId: params.journalId});
 
             if (response) {
                 setContents(response as PageContents); 
@@ -53,7 +54,7 @@ export default function Page({ params }: { params: { movieId: string } }) {
                 <div>
                     <a href="/journals"><h1>Back</h1></a>
                     {contents.parent_icon?.url ? (
-                        <img src={contents.parent_icon.url} style={{ width: 80 }} alt="parent_icon" />
+                        <Image src={contents.parent_icon.url} width={100} height={200} alt="parent_icon" />
                     ) : (
                         <p style={{ fontSize: 80 }}>{contents.parent_icon}</p>
                     )}

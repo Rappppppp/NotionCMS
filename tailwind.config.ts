@@ -7,11 +7,21 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      'teachers': "'Teachers'",
+      'yeseva': "'Yeseva One'",
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        primary: '#598F99', // Light Blue
+        secondary: '#FFFAE4', // Khaki
+        tertiary: '#FFEA8A', // Yellow Vintage
+        quarternary: '#574B14',
+        'primary-darker': '#45737B',
+        orange: '#E69904'
+      }, screens: {
+        'xsm': { 'max': '375px' },
+        'sm': { 'max': '770px' },
       },
     },
   },
