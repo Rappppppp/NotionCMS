@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react'
 import NotionDB from '@/server/NotionDB'
 
 import Image from 'next/image'
-import Navbar from '@/components/Navbar'
+
+import Loading from '@/components/Loading'
 
 export interface MovieList {
   page_id: string
@@ -12,6 +13,7 @@ export interface MovieList {
   description: string
   image_cover: string
 }
+
 
 export default function Journals() {
   const [lists, setLists] = useState<MovieList[]>([])
@@ -48,11 +50,10 @@ export default function Journals() {
 
   return (
     <>
-      <Navbar />
       <div className='h-screen mx-32'>
         <div className='flex h-full items-center'>
           <div className='flex flex-col gap-5'>
-            {isLoading ? 'Loading...' : lists.map((list, index) => (
+            {isLoading ? <Loading/> : lists.map((list, index) => (
               <div key={index} className='flex flex-row gap-5'>
                 <Image
                   src={list.image_cover}

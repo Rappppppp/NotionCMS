@@ -1,10 +1,13 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+
 import BlockRenderer from '@/components/BlockRenderer';
+import Loading from '@/components/Loading';
+
 import NotionContents from '@/server/NotionContents';
 
-import Image from 'next/image';
 
 interface PageContents {
     parent_icon: any;
@@ -48,10 +51,8 @@ export default function Page({ params }: { params: { journalId: string } }) {
 
     return (
         <>
-            {isLoading ? (
-                'Loading...'
-            ) : (
-                <div>
+            {isLoading ? <Loading/> : (
+                <div className='h-screen flex flex-col items-center justify-center'>
                     <a href="/journals"><h1>Back</h1></a>
                     {contents.parent_icon?.url ? (
                         <Image src={contents.parent_icon.url} width={100} height={200} alt="parent_icon" />

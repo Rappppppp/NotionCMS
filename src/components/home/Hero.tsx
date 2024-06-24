@@ -3,7 +3,7 @@ import React from 'react'
 const Hero = () => {
     return (
         <>
-            <div className="main-bg"></div>
+            <div className="main-bg h-screen"></div>
             <section className="flex h-screen items-center text-secondary text-center lg:text-justify mx-10 lg:mx-32 overflow-hidden relative">
 
                 <div className="flex flex-col gap-y-12 relative">

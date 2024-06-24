@@ -2,7 +2,6 @@
     background-image: url('../../image/main-bg.jpg');
     position: absolute;
     width: 100%;
-    height: 100%;
     opacity: 30%;
     z-index: -1;
     background-attachment: fixed;
