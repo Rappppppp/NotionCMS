@@ -54,7 +54,7 @@ export default function Journals() {
         <div className='flex h-full items-center'>
           <div className='flex flex-col gap-5'>
             {isLoading ? <Loading/> : lists.map((list, index) => (
-              <div key={index} className='flex flex-row gap-5'>
+              <div key={index} className='flex flex-col lg:flex-row gap-5'>
                 <Image
                   src={list.image_cover}
                   width={200}
