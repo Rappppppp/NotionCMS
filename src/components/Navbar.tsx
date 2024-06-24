@@ -23,13 +23,15 @@ const style: { active: string, inactive: string } = {
 }
 
 const Navbar = () => {
+    const pathname = usePathname()
+
     return (
         <>
             <div className="absolute right-0 text-secondary m-10 text-3xl lg:hidden z-20">🌸</div>
-            <nav className="z-10 flex absolute left-[-100%] lg:left-0 w-full bg-primary justify-center items-center text-center text-xl h-screen ease-in duration-300 lg:h-auto z-20">
+            <nav className="flex absolute left-[-100%] lg:left-0 w-full bg-primary justify-center items-center text-center text-xl h-screen ease-in duration-300 lg:h-auto z-20">
                 <div className="text-xl font-teachers font-bold text-tertiary flex flex-col gap-y-10 lg:flex-row lg:gap-x-10 lg:text-lg lg:py-3">
                     {Object.entries(links).map(([key, value]) => (
-                        <Link key={key} href={value} className={usePathname() === value ? style.active : style.inactive}>{key}</Link>
+                        <Link key={key} href={value} className={pathname === value ? style.active : style.inactive}>{key}</Link>
                     ))}
                 </div>
             </nav >
