@@ -23,8 +23,8 @@ export default function Journals() {
     async function fetchData() {
       try {
         const response = await NotionDB()
+        
         if (response) {
-          // Filter out null values and map the remaining objects to DataItem
           const filteredData: MovieList[] = response
             .filter(item => item !== null)
             .map((item: any) => ({
@@ -62,7 +62,6 @@ export default function Journals() {
                   alt={`ALT_${list.title}`} />
                 <a href={`journals/${list.page_id}`}><h1>{list.title}</h1></a>
                 <p>{list.description}</p>
-                
               </div>
             ))}
           </div>

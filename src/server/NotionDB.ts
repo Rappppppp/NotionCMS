@@ -3,14 +3,13 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-import { Client } from '@notionhq/client'
-const notion = new Client({ auth: process.env.NOTION_SECRET })
+import NotionClient from './NotionClient'
 
 const NotionDB = async () => {
     try {
         // Call `retrieve` on `databases` to retrieve a database object.
-        const response = await notion.databases.query({
-            database_id: process.env.NOTION_DB!,
+        const response = await NotionClient.databases.query({
+            database_id: process.env.NOTION_DB_FILMS!,
             filter: {
                 property: 'Status',
                 status: {

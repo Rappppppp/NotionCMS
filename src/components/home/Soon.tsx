@@ -1,43 +1,57 @@
-import React from 'react'
+"use client"
+
+import { useState, useEffect } from 'react'
+
+import Apollo from '@/server/Apollo'
+import { Hearts } from 'react-loader-spinner'
+import Image from 'next/image'
 
 const Soon = () => {
+    const [movies, setMovies] = useState<any>([])
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            const data = await Apollo()
+            setMovies(data.titles)
+            setIsLoading(false)
+        }
+
+        fetchMovies()
+    }, [])
+
     return (
         <>
             {/* <div className="main-bg h-[200vh]"></div> */}
-            <section className="flex justify-center bg-primary-darker h-screen relative pt-20">
+            <section className="flex justify-center bg-primary-darker h-auto relative pt-20 pb-20">
                 <div className="flex flex-col w-full gap-y-20 mx-14 lg:mx-32">
                     <header className="font-yeseva text-[5rem] text-center text-secondary">soon to watch</header>
-                    <div className="font-teachers">
-                        <div className="bg-secondary h-full border-4 border-primary p-5 rounded-2xl">
+                    <div className="font-teachers grid sm:grid-cols-1 grid-cols-2 gap-5">
 
-                            <div className="lg:grid lg:grid-cols-5 gap-x-5 text-quarternary">
-                                <div className="h-[10rem] lg:h-full w-full bg-slate-600 rounded-2xl lg:col-span-2"></div>
-                                <div className="flex flex-col gap-y-5 lg:col-span-3 relative">
-                                    <h1 className="mt-5 text-center text-3xl lg:text-left lg:mt-0 lg:text-5xl">Deadpool 3
-                                    </h1>
-                                    <p className="lg:text-lg text-justify">Lorem ipsum dolor sit amet consectetur
-                                        adipisicing
-                                        elit. Facere tempora maiores sit doloremque obcaecati laboriosam pariatur nihil
-                                        saepe quasi neque recusandae excepturi vel, repellat voluptate nisi minus.
-                                        Expedita
-                                        inventore alias aliquam consequatur asperiores. Repellat ratione vero alias
-                                        nobis
-                                        delectus doloribus natus eveniet, aliquam, officia, itaque veritatis accusamus
-                                        sed.
-                                        Suscipit earum quo eos molestiae repellendus ipsum veniam sequi corporis
-                                        cupiditate
-                                        soluta qui explicabo architecto, placeat hic nesciunt eveniet doloribus modi
-                                        esse
-                                        accusamus velit. Sequi earum asperiores hic architecto amet quos sapiente odio
-                                        obcaecati eveniet et, ratione unde eligendi eos corporis animi labore quas
-                                        voluptates consectetur quam molestias eum. Ab, perferendis impedit.
-                                    </p>
-                                    <button
-                                        className="absolute right-0 bottom-0 font-bold hover:underline transition duration-300 ease-in-out">read
-                                        more</button>
+                        {isLoading ? (
+                            <div className='grid col-span-2'>
+                                <div className="bg-secondary row-span-2 border-4 border-primary p-5 rounded-2xl flex flex-col items-center">
+                                    <Hearts color='#598F99' />
+                                    <h1 className='text-3xl text-black'>Loading</h1>
                                 </div>
                             </div>
-                        </div>
+                        ) : movies.map((movie: any) => {
+                            return (
+                                <div key={movie.id} className="bg-secondary border-4 border-primary p-5 rounded-2xl grid">
+                                    <div className="flex flex-row gap-x-5 text-quarternary">
+                                        <Image src={movie.posters[0].url} alt={`${movie.primary_title} Poster`} width={300} height={300} className="w-[10rem] bg-slate-600 rounded-2xl lg:col-span-1 object-cover" />
+                                        <div className="flex flex-col gap-y-5 relative">
+                                            <h1 className="mt-5 text-3xl text-left lg:mt-0 lg:text-5xl">{movie.primary_title}</h1>
+                                            <p className="lg:text-md">{movie.start_year}</p>
+                                            <p className="lg:text-md">{movie.origin_countries[0].name}</p>
+                                            <p className="lg:text-lg">Genre: {movie.genres.join(', ')}</p>
+                                            <p className="lg:text-lg">{movie.plot}</p>
+                                            {/* <button className="absolute right-0 bottom-0 font-bold hover:underline transition duration-300 ease-in-out">read more</button> */}
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </section>

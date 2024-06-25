@@ -3,8 +3,7 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-import { Client } from '@notionhq/client';
-const notion = new Client({ auth: process.env.NOTION_SECRET })
+import NotionClient from './NotionClient'
 
 type ContentsType = {
     pageId: string
@@ -13,7 +12,7 @@ type ContentsType = {
 const NotionContents = async ({ pageId }: ContentsType) => {
     
     try {
-        const parentResponse = await notion.pages.retrieve({
+        const parentResponse = await NotionClient.pages.retrieve({
             page_id: pageId
         })
         
@@ -21,7 +20,7 @@ const NotionContents = async ({ pageId }: ContentsType) => {
         const { Rating, Genre, Status, Name } = properties as any
 
         // Get Children Blocks Response
-        const childrenResponse = await notion.blocks.children.list({
+        const childrenResponse = await NotionClient.blocks.children.list({
             block_id: pageId
         });
 
