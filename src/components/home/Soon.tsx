@@ -29,7 +29,7 @@ const Soon = () => {
                     <div className="font-teachers grid sm:grid-cols-1 grid-cols-2 gap-5">
 
                         {isLoading ? (
-                            <div className='grid col-span-2'>
+                            <div className='grid col-span-2 '>
                                 <div className="bg-secondary row-span-2 border-4 border-primary p-5 rounded-2xl flex flex-col items-center">
                                     <Hearts color='#598F99' />
                                     <h1 className='text-3xl text-black'>Loading</h1>
